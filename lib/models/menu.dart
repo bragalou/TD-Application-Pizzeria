@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 class Menu {
-  int id;
+  int type;
   String title;
   String image;
   Color color;
 
-  Menu(this.id, this.title, this.image, this.color);
+  Menu(this.type, this.title, this.image, this.color);
 }
