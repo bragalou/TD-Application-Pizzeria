@@ -1,6 +1,6 @@
 # pizzeria
 
-appli flutter commande pizza boisson autre
+Application Pizzéria en cours de flutter
 
 ## Getting Started
 
