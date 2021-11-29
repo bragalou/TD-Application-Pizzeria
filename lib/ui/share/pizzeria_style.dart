@@ -36,4 +36,15 @@ class PizzeriaStyle {
     color: Colors.blue,
     fontSize: 21.0,
   );
+
+
+  static final TextStyle priceUnitairePanier = baseTextStyle.copyWith(
+    color: Colors.grey,
+    fontSize: 14.0,
+  );
+
+  static final TextStyle priceSoustotalPanier = baseTextStyle.copyWith(
+    color: Colors.indigo,
+    fontSize: 18.0,
+  );
 }

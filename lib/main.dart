@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:pizzeria/models/menu.dart';
 import 'package:pizzeria/ui/pizza_list.dart';
+import 'package:pizzeria/ui/share/appbar_widget.dart';
+
+import 'models/cart.dart';
 
 void main() {
   runApp(const Pizzeria());
@@ -26,8 +28,11 @@ class Pizzeria extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {  //stateledd sans état = il peut tout modifier mais ne réagis pas au click utilisateur pour modif la page en cours
   String title;
+  Cart _cart;
 
-  MyHomePage({required this.title, Key? key}) : super(key: key);
+  MyHomePage({required this.title, Key? key}) :
+        _cart = Cart(),
+        super(key: key);
 
   final _menus = [
     Menu(1, 'Entrées', 'entree.png', Colors.lightGreen),
@@ -39,9 +44,7 @@ class MyHomePage extends StatelessWidget {  //stateledd sans état = il peut tou
   @override
   Widget build(BuildContext context) {
     return Scaffold( //tj utiliser
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBarWidget(title, _cart),
       body: Center(
         child: ListView.builder(
           itemCount: _menus.length,
@@ -50,7 +53,7 @@ class MyHomePage extends StatelessWidget {  //stateledd sans état = il peut tou
             onTap: () {
               switch(_menus[index].type) {
                 case 2:
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PizzaList()),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PizzaList(_cart)),);
                   break;
               }
             },
