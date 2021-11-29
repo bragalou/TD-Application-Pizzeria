@@ -55,6 +55,7 @@ class Cart {
     for (var i = 0; i < _items.length; i++) {
       sum += (_items[i].pizza.total * _items[i].quantity);
     }
+    print(sum);
     return sum;
   }
 

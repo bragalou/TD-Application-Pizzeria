@@ -17,60 +17,13 @@ class Panier extends StatefulWidget {
 class _PanierState extends State<Panier> {
   @override
   Widget build(BuildContext context) {
-
     var format = NumberFormat("###.00€");
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Mon panier'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: widget._cart.totalItems(),
-                itemBuilder: (context, index) {
-                  return _bluidItem(widget._cart.getCartItem(index), widget._cart);
-                }),
-          ),
-
-          Container(
-            //margin: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
-            child: Table(
-              border: TableBorder.all(
-                color: Colors.grey,
-                style: BorderStyle.solid,
-                width: 1
-              ),
-              children: [
-                TableRow( children: [
-                  Column(children: [Text('TOTAL HT')]),
-                  Column(children: [Text('${format.format(widget._cart.HT())}')],)
-                ]),
-                TableRow( children: [
-                  Column(children: [Text('TVA')]),
-                  Column(children: [Text('${format.format(widget._cart.TVA())}')],)
-                ]),
-                TableRow( children: [
-                  Column(children: [Text('TOTAL TTC')]),
-                  Column(children: [Text('${format.format(widget._cart.TotalTTC())}')],)
-                ]),
-              ],
-            ),
-          ),
-
-
-          Container(
-            child: ElevatedButton(
-
-              child: Text('Valider le panier'),
-              onPressed: () {
-                print('achat');
-              },
-            ),
-          )
-        ],
-      ),
+      body: Affichage(),
     );
   }
 
@@ -94,7 +47,6 @@ class _PanierState extends State<Panier> {
             fit: BoxFit.fitWidth,
           ),
           Expanded(
-
             child: Container(
               margin: EdgeInsets.fromLTRB(12.0, 0.0, 0.0, 0.0),
               child: Column(
@@ -153,5 +105,68 @@ class _PanierState extends State<Panier> {
         ],
       ),
     );
+  }
+
+  Affichage() {
+    var format = NumberFormat("###.00€");
+    if (widget._cart.TotalTTC() == 0) {
+      return Container(
+        width: double.infinity,
+        child: Text(
+          "Le pannier est vide",
+          textAlign: TextAlign.center,
+          style: PizzeriaStyle.headerTextStyle,
+        ),
+      );
+    } else {
+      return Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemCount: widget._cart.totalItems(),
+                itemBuilder: (context, index) {
+                  return _bluidItem(
+                      widget._cart.getCartItem(index), widget._cart);
+                }),
+          ),
+          Container(
+            child: Table(
+              border: TableBorder.all(
+                  color: Colors.grey, style: BorderStyle.solid, width: 1),
+              children: [
+                TableRow(children: [
+                  Column(children: [Text('TOTAL HT')]),
+                  Column(
+                    children: [Text('${format.format(widget._cart.HT())}')],
+                  )
+                ]),
+                TableRow(children: [
+                  Column(children: [Text('TVA')]),
+                  Column(
+                    children: [Text('${format.format(widget._cart.TVA())}')],
+                  )
+                ]),
+                TableRow(children: [
+                  Column(children: [Text('TOTAL TTC')]),
+                  Column(
+                    children: [
+                      Text('${format.format(widget._cart.TotalTTC())}')
+                    ],
+                  )
+                ]),
+              ],
+            ),
+          ),
+          Container(
+            child: ElevatedButton(
+              child: Text('Valider le panier'),
+              onPressed: () {
+                print('achat');
+              },
+            ),
+          )
+        ],
+      );
+    }
   }
 }
